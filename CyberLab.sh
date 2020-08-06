@@ -52,13 +52,13 @@ alert2='VPN access revoked!'
 
 echo "Profile Successfully created.  Adding crontab..."
 
-(crontab -l 2> /dev/null; echo "00 11 $dd1 $mm * usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert1 $filename'; crontab -l | grep -v '$alert1 $filename' | crontab") | crontab -
+(crontab -l 2> /dev/null; echo "00 11 $dd1 $mm * /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert1 $filename'; crontab -l | grep -v '$alert1 $filename' | crontab") | crontab -
 
-
+(crontab -l 2> /dev/null; echo "00 11 $dd1 $mm * bash deluser.sh $filename | /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert1 $filename'; crontab -l | grep -v '$alert1 $filename' | crontab") | crontab -
 
 }
 
-/
+
 
 
 #Command
