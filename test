@@ -1,0 +1,2 @@
+00 11 12-1 09 * /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf 'Team Viewer access expires tomorrow for akriti-12345'; crontab -l | grep -v 'Team Viewer access expires tomorrow for akriti-12345' | crontab
+00 11 12 09 * /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf 'Team Viewer access revoked! akriti-12345'; crontab -l | grep -v 'Team Viewer access revoked! akriti-12345' | crontab

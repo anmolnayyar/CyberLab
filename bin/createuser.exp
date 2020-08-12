@@ -4,7 +4,7 @@ set name [lindex $argv 0]
 
 set timeout -1
 
-spawn bash bin/openvpn-install.sh
+spawn bash /root/Desktop/CyberLab/openvpn-roadwarrior/openvpn-install.sh
 
 match_max 100000
 
