@@ -22,14 +22,16 @@ fi
 createVPNprofile () {
 file2=$1;
 read -p "Enter VPN expiry date(dd mm): " dd mm
-dd1=$dd-1;
+dd1="$(($dd-1))"
+
 ./bin/createuser.exp $file2
+
 alert1='VPN access expires tomorrow for'
 alert2='VPN access revoked!'
 sleep 2
 echo "Profile Successfully created for $file1.  Adding crontab..."
-(crontab -l 2> /dev/null; echo "00 11 $dd1 $mm * /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert1 $file2'; crontab -l | grep -v '$alert1 $file2' | crontab") | crontab -
-(crontab -l 2> /dev/null; echo "00 11 $dd $mm * bash deluser.sh $filename | /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert2 $file2'; crontab -l | grep -v '$alert2 $file2' | crontab") | crontab -
+(crontab -l 2> /dev/null; echo "0 11 $dd1 $mm * /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert1 $file2'; crontab -l | grep -v '$alert1 $file2' | crontab") | crontab -
+(crontab -l 2> /dev/null; echo "0 11 $dd $mm * bash /root/bin/deluser.sh $filename | /usr/local/bin/telegram-send --config /etc/telegram-send/group.conf '$alert2 $file2'; crontab -l | grep -v '$alert2 $file2' | crontab") | crontab -
 sleep 2
 echo "cron jobs installed" 
 }
@@ -37,7 +39,7 @@ echo "cron jobs installed"
 installCronTeam () {
 file3=$1;
 read -p "Enter Team Viewer expiry date(dd mm): " dd mm
-dd1=$dd-1;
+dd1="$(($dd-1))"
 alert1='Team Viewer access expires tomorrow for'
 alert2='Team Viewer access revoked!'
 sleep 2
@@ -51,7 +53,7 @@ echo "cron jobs installed"
 installCronNessus () {
 file4=$1;
 read -p "Enter Nessus expiry date(dd mm): " dd mm
-dd1=$dd-1;
+dd1="$(($dd-1))"
 alert1='Nessus access expires tomorrow for'
 alert2='Nessus access revoked!'
 sleep 2
