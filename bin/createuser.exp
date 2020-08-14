@@ -1,24 +1,33 @@
 #!/usr/bin/expect -f
 
+# 2) differing output - Some programs produce different output each time
+# they run.  The "date" command is an obvious example.  Another is
+# ftp, if it produces throughput statistics at the end of a file
+# transfer.  If this causes a problem, delete these patterns or replace
+# them with wildcards.  An alternative is to use the -p flag (for
+# "prompt") which makes Expect only look for the last line of output
+# (i.e., the prompt).  The -P flag allows you to define a character to
+# toggle this mode off and on.
+#
+# Read the man page for more info.
+
 set name [lindex $argv 0]
 
 set timeout -1
-
 spawn bash /root/bin/openvpn-install.sh
-
 match_max 100000
-
-expect -exact "\[H\[2J\[3JLooks like OpenVPN is already installed.\r 
-\r What do you want to do?\r
+expect -exact "\[H\[2J\[3JLooks like OpenVPN is already installed.\r
+\r
+What do you want to do?\r
    1) Add a new user\r
    2) Revoke an existing user\r
    3) Remove OpenVPN\r
-   4) Exit\r Select an option: "
-
+   4) Exit\r
+Select an option: "
 send -- "1\r"
-
-expect -exact "1\r \r Tell me a name for the client certificate.\r Client name: "
-
+expect -exact "1\r
+\r
+Tell me a name for the client certificate.\r
+Client name: "
 send -- $name\r
-
 expect eof
